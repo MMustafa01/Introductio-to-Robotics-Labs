@@ -1,0 +1,48 @@
+function b = In_WKSP(x, y)
+    %First check if the joint angle is correct
+    theta = atan2(abs(y),abs(x));
+    
+    
+    if x > 0 && y > 0
+        quad = 1;
+    elseif x < 0 && y > 0 
+        quad = 2;
+        theta = pi - theta;
+    elseif x < 0 && y < 0 
+        quad = 3;
+        theta = pi + theta;
+    elseif x > 0 && y < 0 
+        quad = 4;
+        theta = 2*pi - theta;
+
+    end
+    
+    fprintf("Quadrant = %s \n", num2str(quad))
+    fprintf("\theta = %d \n", theta*180/pi)
+    
+    if (theta >= 0*pi/180 && theta <= 240*pi/180) || (theta >= 300*pi/180 && theta < 360*pi/180)
+        a = 1;
+    else
+        a = 0;
+    end
+    fprintf('The a = %d \n', a)
+    %Since the way we have defined the workspace for the task to be the
+    %region where phi can be +- 90. Then r < a2+a3+a4
+    % a2+a3+a4 = 10.5+10.5+7.5
+    r_lim = 10.5+10.5+7.5;
+    r = sqrt(x^2 + y^2);
+    fprintf("\ = %d \n", theta*180/pi)
+    if (r < r_lim)
+        d = 1;
+    else
+        d = 0;
+    end
+    fprintf('The d = %d \n', d)
+    b = a*d;
+    if b == 1
+        disp('In the workspace')
+    else
+        disp('Not in the workspace')
+    end
+
+end

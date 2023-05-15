@@ -1,0 +1,1 @@
+[x,y,z,R] = findPincher(0,0,0,90)

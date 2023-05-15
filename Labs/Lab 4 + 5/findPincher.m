@@ -1,0 +1,44 @@
+function [x,y,z,R] = findPincher(theta_1,theta_2,theta_3,theta_4)
+
+    alpha_1 =90;
+    d_1=14;
+    a_1=0;
+    
+    alpha_2 =0;
+    d_2=0;
+    a_2 = 10.5;
+    
+    alpha_3 =0;
+    d_3=0;
+    a_3=10.5;
+    
+    alpha_4 =0;
+    d_4=0;
+    a_4 =7.5;
+    
+    T01 = [cosd(theta_1),  -sind(theta_1)*cosd(alpha_1), sind(theta_1)*sind(alpha_1) a_1*cosd(theta_1);
+        sind(theta_1), cosd(theta_1)*cosd(alpha_1), -cosd(theta_1)*sind(alpha_1), a_1*sind(theta_1);
+        0, sind(alpha_1), cosd(alpha_1), d_1;
+        0, 0 , 0, 1];
+    
+    T02 = [cosd(theta_2),  -sind(theta_2)*cosd(alpha_2), sind(theta_2)*sind(alpha_2) a_2*cosd(theta_2);
+        sind(theta_2), cosd(theta_2)*cosd(alpha_2), -cosd(theta_2)*sind(alpha_2), a_2*sind(theta_2);
+        0, sind(alpha_2), cosd(alpha_2), d_2;
+        0, 0 , 0, 1];
+    
+    T03 = [cosd(theta_3),  -sind(theta_3)*cosd(alpha_3), sind(theta_3)*sind(alpha_3) a_3*cosd(theta_3);
+        sind(theta_3), cosd(theta_3)*cosd(alpha_3), -cosd(theta_3)*sind(alpha_3), a_3*sind(theta_3);
+        0, sind(alpha_3), cosd(alpha_3), d_3;
+        0, 0 , 0, 1];
+    
+    T04= [cosd(theta_4),  -sind(theta_4)*cosd(alpha_4), sind(theta_4)*sind(alpha_4) a_4*cosd(theta_4);
+        sind(theta_4), cosd(theta_4)*cosd(alpha_4), -cosd(theta_4)*sind(alpha_4), a_4*sind(theta_4);
+        0, sind(alpha_4), cosd(alpha_4), d_4;
+        0, 0 , 0, 1];
+    
+    T=T01*T02*T03*T04;
+    R= T(1:3, 1:3);
+    q = T(1:3,4);
+    x= q(1); y = q(2); z = q(3);
+    
+end
